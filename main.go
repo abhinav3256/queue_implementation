@@ -9,50 +9,46 @@ type Queue struct {
 
 func main() {
 	q := Queue{}
-	q.Size = 5
-
-	q.enque(25)
-	q.enque(12)
-	q.enque(17)
-	q.enque(87)
-	q.enque(26)
-	q.enque(38)
-
-	fmt.Println(q.Element)
+	q.Size = 4
+	q.deque()
+	q.enque(8)
+	q.enque(81)
+	q.enque(45)
+	q.enque(63)
+	q.deque()
 	q.deque()
 	fmt.Println(q.Element)
-
 }
+func (q *Queue) enque(x int) {
 
-func (q *Queue) enque(element int) int {
-	if q.getLength() == q.Size {
-		fmt.Println("queue overflow")
-		return 0
+	if !q.isFull() {
+		q.Element = append(q.Element, x)
+	} else {
+		fmt.Println("overflow")
 	}
-	q.Element = append(q.Element, element)
-	fmt.Println("Elemnt added:", element)
-	return 1
+
 }
 
-func (q *Queue) deque() int {
-	// if q.isEmpty() {
-	// 	fmt.Println("queue underflow")
-	// 	return 0
-	// }
-	q.Element = q.Element[1:]
-	return 1
-}
+func (q *Queue) deque() {
+	if !q.isEmpty() {
+		q.Element = q.Element[1:]
+	} else {
+		fmt.Println("underflow")
+	}
 
-func (q *Queue) getLength() int {
-
-	return len(q.Element)
 }
 
 func (q *Queue) isEmpty() bool {
-
-	if len(q.Element) > 0 {
-		return false
-	} else {
+	if len(q.Element) == 0 {
 		return true
+	}
+	return false
+}
+
+func (q *Queue) isFull() bool {
+	if len(q.Element) == q.Size {
+		return true
+	} else {
+		return false
 	}
 }
